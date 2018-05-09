@@ -1,0 +1,417 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <title>Sistemas Distribuidos</title>
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/black.css">
+
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+</head>
+<body>
+<div class="reveal">
+    <div class="slides">
+        <section>
+            <h2>temas</h2>
+            <ul>
+                <li>Arquitectura multitier</li>
+                <li>JPA & Hibernate</li>
+                <li>Maven</li>
+                <li>Spring</li>
+            </ul>
+        </section>
+
+        <section>
+            <section>
+                <h2>Arquitectura multitier</h2>
+                <p>
+                    Se refiere a una arquitectura donde el software está diseñado para tener distintas funcionalidades
+                    separadás fisica y lógicamente.
+                </p>
+            </section>
+
+            <section>
+                <h3>Normalmente...</h3>
+                <ul>
+                    <li>Capa de presentación</li>
+                    <li>Capa de dominio</li>
+                    <li>Capa de persistencia</li>
+                </ul>
+            </section>
+
+            <section>
+                <img src="./images/3tier.jpg">
+            </section>
+
+            <section>
+                <h3>pros</h3>
+                <ul>
+                    <li><b>Redundancia:</b> Es posible agregar más servidores en la capa que más lo necesite</li>
+                    <li><b>Evolución:</b> Debido a la separación lógica/física de las distintas capas, es posible que
+                        cada una evolucionen de manera independiente
+                    </li>
+                    <li><b>Reutilización:</b> Fuerza la definición de una interfaz, que permite que se más fácil la
+                        reutilización
+                    </li>
+                    <li><b>Seguridad:</b> Oculta la estructura de la base de datos, agregando más seguridad</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>cons</h3>
+                <ul>
+                    <li><b>Complejidad:</b> En la medida en que se agregan más capas al sistema, aumenta su complejodad
+                    </li>
+                    <li><b>Performance:</b> Necesariamente aumenta la latencia</li>
+                </ul>
+            </section>
+        </section>
+
+        <section>
+            <section>
+                <h2>JPA</h2>
+                <p style="font-size: 30px;line-height: 1.0">
+                    JPA (Java Persistence API) es una especificación para acceder, persistir y manejar la información entre objetos y una base de datos relacional
+                </p>
+            </section>
+
+            <section>
+                <p style="font-size: 30px;line-height: 1.0">
+                    JPA por sí solo es una spec definida a través de una serie de interfaces. No es un producto, y no puede persistir ni leer nada de una base de datos. Eso es tarea de las distintas implementaciones que existen.
+                </p>
+            </section>
+
+            <section>
+                <h2><a href="https://es.wikipedia.org/wiki/Hibernate">Hibernate</a></h2>
+                <blockquote style="font-size: 30px;line-height: 1.0">
+                    Hibernate es una herramienta de mapeo objeto-relacional (ORM) para la plataforma Java (y disponible también para .Net con el nombre de NHibernate) que facilita el mapeo de atributos entre una base de datos relacional tradicional y el modelo de objetos de una aplicación, mediante archivos declarativos (XML) o anotaciones en los beans de las entidades que permiten establecer estas relaciones.
+                </blockquote>
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <h2>Maven</h2>
+                <p style="font-size: 30px;line-height: 1.0">
+                    Maven nació como una herramienta para poder facilitar el building de una aplicación. Con el tiempo,
+                    creció su popularidad y sus responsabilidades:
+                </p>
+                <ul>
+                    <li>Builds</li>
+                    <li>Dependencies</li>
+                    <li>Releases</li>
+                    <li>Distribution</li>
+                    <li>Documentation</li>
+                    <li>Reporting</li>
+                    <li>SCMs</li>
+                    <li>Mailing list</li>
+                </ul>
+            </section>
+
+            <section>
+                <h3>POM</h3>
+                <p style="font-size: 30px;line-height: 1.0">
+                    El POM (Project Object Model) es un archivo xml que define al proyecto (dependencias,
+                    configuraciones, build, etc..).
+                </p>
+
+                <pre><code class="xml" data-trim contenteditable style="font-size: 18px;">
+                    <project xmlns="http://maven.apache.org/POM/4.0.0"
+                             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                             xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+                        <modelVersion>4.0.0</modelVersion>
+
+                        <groupId>org.fiuba.demo</groupId>
+                        <artifactId>project</artifactId>
+                        <version>1.0</version>
+                    </project>
+
+                </code></pre>
+
+            </section>
+
+            <section>
+                <h4>Build Lifecycle</h4>
+                <p style="font-size: 30px;line-height: 1.0">
+                    El Build Lifecycle es una secuencia bien definida de fases. Puede verse como un workflow, donde las fases serían los pasos que son ejecutados uno luego del otro.
+                </p>
+                <img src="./images/mvn-lifecycle-default.png">
+            </section>
+
+            <section>
+                <h4>Dependencies</h4>
+                <p style="font-size: 30px;line-height: 1.0">
+                    Las dependencias deben definirse en el pom.xml. Maven descargará la dependencia de su repositorio central, y la guardará localmente.
+                </p>
+                <pre><code class="xml" data-trim contenteditable style="font-size: 18px;">
+                    <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+
+                            <modelVersion>4.0.0</modelVersion>
+
+                            <!-- project coordinates -->
+                            <groupId>com.xyz</groupId>
+                            <artifactId>simple-app</artifactId>
+                            <version>1.0</version>
+
+                            <!-- project dependencies -->
+                            <dependencies>
+                                    <dependency>
+                                            <groupId>commons-lang</groupId>
+                                            <artifactId>commons-lang</artifactId>
+                                            <version>2.4</version>
+                                    </dependency>
+                            </dependencies>
+
+                    </project>
+
+                </code></pre>
+            </section>
+
+            <section>
+                <h4>Plugins</h4>
+                <p style="font-size: 30px;line-height: 1.0">
+                    El core de maven es chico, pudiendo resolver solamente el parseo del pom.xml, y manejo de los ciclos de vida y las fases. Maven no sabe como compilar el código, o armar un .jar.
+                </p>
+                <img height="400px" src="./images/maven-pluings.png">
+            </section>
+
+        </section>
+
+        <section>
+            <section>
+                <h2>Spring</h2>
+                <p style="font-size: 30px;line-height: 1.0">
+                    Spring es un framework opensource que permite crear aplicaciones java, que surgió debido a la
+                    complejidad que existia para crear aplicaciones con otros frameworks, como EJB (enterprise java
+                    beans)
+                </p>
+            </section>
+
+            <section>
+                <h4><a href="https://martinfowler.com/bliki/InversionOfControl.html">Inversión de control</a></h4>
+                <p>
+                    Also known as the Hollywood Principle: <q>Don't call us, we'll call you</q>
+                </p>
+                <blockquote style="font-size: 30px;">
+                    &ldquo;One important characteristic of a framework is that the methods defined by the user to tailor
+                    the framework will often be called from within the framework itself, rather than from the user's
+                    application code. The framework often plays the role of the main program in coordinating and
+                    sequencing application activity. This inversion of control gives frameworks the power to serve as
+                    extensible skeletons. The methods supplied by the user tailor the generic algorithms defined in the
+                    framework for a particular application.&rdquo;
+                </blockquote>
+            </section>
+
+            <section>
+                <h4><a href=https://martinfowler.com/articles/injection.html">Inyeccción de dependencias</a></h4>
+
+                <p style="font-size: 30px;line-height: 1.0">
+                    Una aplicación disponemos de muchos objetos que se relacionan entre sí mediante composición. Luego,
+                    para relacionar dos objetos tendriamos que pasarle la instancia de uno al otro.
+                </p>
+                <p style="font-size: 30px;line-height: 1.0">
+                    Esto puede volverse facilmente tedioso cuando la cantidad de objetos crece.
+                </p>
+            </section>
+
+            <section>
+                <h3>Autowired on Properties</h3>
+                <pre><code class="java" data-trim contenteditable style="font-size: 18px;">
+@Component
+public class FooFormatter {
+
+    public String format() {
+        return "foo";
+    }
+}
+
+@Component
+public class FooService {
+
+    @Autowired
+    private FooFormatter fooFormatter;
+
+}
+					</code></pre>
+            </section>
+
+            <section>
+                <h3>Autowired on Setters</h3>
+                <pre><code class="java" data-trim contenteditable style="font-size: 18px;">
+public class FooService {
+
+    private FooFormatter fooFormatter;
+
+    @Autowired
+    public void setFooFormatter(FooFormatter fooFormatter) {
+            this.fooFormatter = fooFormatter;
+    }
+}
+					</code></pre>
+            </section>
+
+            <section>
+                <h3>Autowired on Constructors</h3>
+                <pre><code class="java" data-trim contenteditable style="font-size: 18px;">
+public class FooService {
+
+    private FooFormatter fooFormatter;
+
+    @Autowired
+    public FooService(FooFormatter fooFormatter) {
+        this.fooFormatter = fooFormatter;
+    }
+}
+					</code></pre>
+            </section>
+
+            <section>
+                <h4>Módulos</h4>
+
+                <p style="font-size: 30px;line-height: 1.0">
+                    Spring Framework comprende diversos módulos que proveen un rango de servicios
+                </p>
+                <img src="./images/spring-modulos.png">
+            </section>
+
+            <section>
+                <h4>Spring boot</h4>
+
+                <p style="font-size: 30px;line-height: 1.0">
+                    ¿Qué problema resuelve?
+                </p>
+
+                <p style="font-size: 30px;line-height: 1.0">
+                    Supongamos que necesitamos armar una aplicación web. Todas las aplicaciones web tienen necesidades
+                    similares:
+                </p>
+
+                <pre><code class="xml" data-trim contenteditable style="font-size: 15px;">
+                <dependency>
+                    <groupId>org.springframework</groupId>
+                    <artifactId>spring-webmvc</artifactId>
+                    <version>4.2.2.RELEASE</version>
+                </dependency>
+                <dependency>
+                    <groupId>com.fasterxml.jackson.core</groupId>
+                    <artifactId>jackson-databind</artifactId>
+                    <version>2.5.3</version>
+                </dependency>
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-validator</artifactId>
+                    <version>5.0.2.Final</version>
+                </dependency>
+                <dependency>
+                    <groupId>log4j</groupId>
+                    <artifactId>log4j</artifactId>
+                    <version>1.2.17</version>
+                </dependency>
+
+                </code></pre>
+            </section>
+
+            <section>
+                <h4>Dependency for Spring Boot Starter Web</h4>
+
+                <pre><code class="xml" data-trim contenteditable style="font-size: 15px;">
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </dependency>
+
+                </code></pre>
+                <img src="./images/spring-boot-dependencies.png">
+            </section>
+
+            <section>
+                <h4><a href="https://start.spring.io/">Spring INITIALIZR</a></h4>
+                <img src="./images/spring-initilizr.png">
+            </section>
+
+            <section>
+                <h4>Spring WebFlux</h4>
+                <p>
+                    Spring WebFlux surge de la necesidad de un stack no bloqueante que pueda manejar mejor la
+                    concurrencia, con un menor número de threads, y que escale con menor cantidad de recursos.</p>
+                </p>
+            </section>
+
+            <section>
+                <h4>Spring WebFlux</h4>
+                <h5>Request bloqueante</h5>
+                <img height="400px" src="./images/blocking-request.png">
+            </section>
+
+            <section>
+                <h4>Spring WebFlux</h4>
+                <h5>Modelo <a href="https://www.youtube.com/watch?v=2oXqbLhMS_A>">reactivo</a></h5>
+                <img height="400px" src="./images/netty-event-loop.png">
+            </section>
+
+
+            <section>
+                <h4>Spring Cloud</h4>
+
+                <p style="font-size: 30px;line-height: 1.0">
+                    Spring Cloud provides tools for developers to quickly build some of the common patterns in
+                    distributed systems. Coordination of distributed systems leads to boiler plate patterns, and using
+                    Spring Cloud developers can quickly stand up services and applications that implement those
+                    patterns.
+                </p>
+
+                <ul style="line-height: 1.0; font-size: 30px;">
+                    <li>Distributed/versioned configuration</li>
+                    <li>Service registration and discovery</li>
+                    <li>Routing</li>
+                    <li>Service-to-service calls</li>
+                    <li>Load balancing</li>
+                    <li>Circuit Breakers</li>
+                    <li>Global locks</li>
+                    <li>Leadership election and cluster state</li>
+                    <li>Distributed messaging</li>
+                </ul>
+            </section>
+
+        </section>
+
+    </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+    // More info about config & dependencies:
+    // - https://github.com/hakimel/reveal.js#configuration
+    // - https://github.com/hakimel/reveal.js#dependencies
+    Reveal.initialize({
+        dependencies: [
+            {src: 'plugin/markdown/marked.js'},
+            {src: 'plugin/markdown/markdown.js'},
+            {src: 'plugin/notes/notes.js', async: true},
+            {
+                src: 'plugin/highlight/highlight.js', async: true, callback: function () {
+                    hljs.initHighlightingOnLoad();
+                }
+            }
+        ]
+    });
+</script>
+</body>
+</html>
